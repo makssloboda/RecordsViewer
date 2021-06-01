@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <ApplicationIcon>icon.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Images\delete.png" />
+      <None Remove="Images\done.png" />
+      <None Remove="Images\edit.png" />
+      <None Remove="Images\folder.png" />
+      <None Remove="Images\newFolder.png" />
+      <None Remove="Images\newRecord.png" />
+      <None Remove="Images\plus.png" />
+      <None Remove="Images\record.png" />
+      <None Remove="Images\search.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+      <PackageReference Include="PropertyChanged.Fody" Version="3.3.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Images\delete.png" />
+      <Resource Include="Images\done.png" />
+      <Resource Include="Images\edit.png" />
+      <Resource Include="Images\folder.png" />
+      <Resource Include="Images\newFolder.png" />
+      <Resource Include="Images\newRecord.png" />
+      <Resource Include="Images\plus.png" />
+      <Resource Include="Images\record.png" />
+      <Resource Include="Images\search.png" />
+    </ItemGroup>
+
+</Project>
