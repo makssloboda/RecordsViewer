@@ -1,7 +1,6 @@
 ﻿using PropertyChanged;
 using System.ComponentModel;
 
-
 namespace TestProject
 {
     /// <summary>
