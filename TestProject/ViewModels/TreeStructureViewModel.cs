@@ -199,9 +199,11 @@ namespace TestProject
                     // if it is folder - don't select it
                     if (Selected.Type == NodeType.Folder)
                         Selected = null;
-                    else
+                    else if (Selected.Type == NodeType.Record)
                         // it's record, so selected node is found and we can get out of cycle
                         break;
+                    else
+                        throw new NotSupportedException();
                 }    
             }
         }
