@@ -63,7 +63,7 @@ namespace TestProject
             managersFolder.Nodes.Add(new RecordViewModel(managersFolder, "Joe Markov", "1998/12/3", "USA"));
             managersFolder.Nodes.Add(new RecordViewModel(managersFolder, "Vika Petrova", "1995/1/8", "Russia"));
             NodeViewModel bestEngineersFolder = new FolderViewModel(null, "Best Engineers");
-            bestEngineersFolder.Nodes.Add(new RecordViewModel(bestEngineersFolder, "Max Slobodianiuk", "2000/7/27", "Ukraine"));
+            bestEngineersFolder.Nodes.Add(new RecordViewModel(bestEngineersFolder, "Maksym Slobodianiuk", "2000/7/27", "Ukraine"));
             engineersFolder.Nodes.Add(bestEngineersFolder);
             bestEngineersFolder.ParentNode = engineersFolder;
             designersFolder.Nodes.Add(new RecordViewModel(designersFolder, "Kristin Stuart", "1987/2/3", "Canada"));
