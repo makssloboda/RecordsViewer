@@ -54,26 +54,8 @@ namespace TestProject
         /// </summary>
         public TreeStructureViewModel()
         {
-            // test data
             Nodes = new ObservableCollection<NodeViewModel>();
-            NodeViewModel managersFolder = new FolderViewModel(this, "Managers");
-            NodeViewModel engineersFolder = new FolderViewModel(this, "Engineers");
-            NodeViewModel designersFolder = new FolderViewModel(this, "Designers");
 
-            managersFolder.Nodes.Add(new RecordViewModel(managersFolder, "Joe Markov", "1998/12/3", "USA"));
-            managersFolder.Nodes.Add(new RecordViewModel(managersFolder, "Vika Petrova", "1995/1/8", "Russia"));
-            NodeViewModel bestEngineersFolder = new FolderViewModel(null, "Best Engineers");
-            bestEngineersFolder.Nodes.Add(new RecordViewModel(bestEngineersFolder, "Maksym Slobodianiuk", "2000/7/27", "Ukraine"));
-            engineersFolder.Nodes.Add(bestEngineersFolder);
-            bestEngineersFolder.ParentNode = engineersFolder;
-            designersFolder.Nodes.Add(new RecordViewModel(designersFolder, "Kristin Stuart", "1987/2/3", "Canada"));
-            designersFolder.Nodes.Add(new RecordViewModel(designersFolder, "Alexander Marcelias", "2001/6/5", "Italy"));
-
-            Nodes.Add(managersFolder);
-            Nodes.Add(engineersFolder);
-            Nodes.Add(designersFolder);
-
-            // commands initialization
             SelectionChangedCommand = new RelayCommand(SelectionChanged);
             FindCommand = new RelayCommand(Find);
             AddFolderCommand = new RelayCommand(() => Nodes.Add(new FolderViewModel(this, "New Folder") { IsRenaming = true }));
@@ -91,43 +73,31 @@ namespace TestProject
         /// </summary>
         private void Find()
         {
-            // if search text is empty - return
             if (String.IsNullOrEmpty(SearchText))
                 return;
 
-            // triming white spaces
             string searchText = SearchText.Trim();
 
-            // if filtering folders..
             if (searchText.StartsWith("f:", true, null))
             {
-                // remove filter pattern and white spaces
                 searchText = searchText.Substring(2).Trim();
 
-                // iterate through subnodes
                 foreach (NodeViewModel node in Nodes)
                 {
                     Selected = node.Search(searchText);
 
-                    // if searched node is found..
                     if (Selected != null)
                     {
-                        // determin if it's a folder
                         if (Selected.Type == NodeType.Folder)
                         {
-                            // expand all nodes
                             Expand();
-                            // select found node
                             Selected.IsSelected = true;
-                            // set Selected to null since we don't need to show details about folders
                             Selected = null;
-                            // get out of foreach cycle
                             break;
                         }
                     }
                 }
             }
-            // if filtering records.. (the process is similar to the folders filtering)
             else if (searchText.StartsWith("r:", true, null))
             {
                 searchText = searchText.Substring(2).Trim();
@@ -146,7 +116,6 @@ namespace TestProject
                     }
                 }
             }
-            // if filters not found..
             else
             {
                 foreach (NodeViewModel node in Nodes)
@@ -173,7 +142,6 @@ namespace TestProject
         /// </summary>
         private void SelectionChanged()
         {
-            // if current node fields are not filled with data, fill them with the word "Unknown"
             if (Selected != null && Selected.Type == NodeType.Record)
             {
                 if (String.IsNullOrEmpty(Selected.Name))
@@ -183,24 +151,18 @@ namespace TestProject
                 if (String.IsNullOrEmpty(Selected.DateOfBirth))
                     Selected.DateOfBirth = "Unknown";
 
-                // end editing
                 Selected.IsEditingName = Selected.IsEditingCountry = Selected.IsEditingDateOfBirth = false;
             }
 
-            // iterate through all nodes
             foreach (NodeViewModel node in Nodes)
             {
-                // find selected node
                 Selected = node.FindSelected();
 
-                // if the node is found..
                 if (Selected != null)
                 {
-                    // if it is folder - don't select it
                     if (Selected.Type == NodeType.Folder)
                         Selected = null;
                     else if (Selected.Type == NodeType.Record)
-                        // it's record, so selected node is found and we can get out of cycle
                         break;
                     else
                         throw new NotSupportedException();
