@@ -69,14 +69,14 @@ namespace TestProject
 
                 foreach (NodeViewModel node in Nodes)
                 {
-                    Selected = node.Search(searchText);
+                    NodeViewModel foundNode = node.Search(searchText);
 
-                    if (Selected != null)
+                    if (foundNode != null)
                     {
-                        if (Selected.node.Type == NodeType.Folder)
+                        if (foundNode.node.Type == NodeType.Folder)
                         {
-                            Expand();
-                            Selected.IsSelected = true;
+                            Selected = foundNode;
+                            foundNode.Expand();
                             Selected = null;
                             break;
                         }
@@ -89,11 +89,13 @@ namespace TestProject
 
                 foreach (NodeViewModel node in Nodes)
                 {
-                    Selected = node.Search(searchText);
-                    if (Selected != null)
+                    NodeViewModel foundNode = node.Search(searchText);
+                    
+                    if (foundNode != null)
                     {
-                        if (Selected.node.Type == NodeType.Record)
+                        if (foundNode.node.Type == NodeType.Record)
                         {
+                            Selected = foundNode;
                             Expand();
                             Selected.IsSelected = true;
                             break;
