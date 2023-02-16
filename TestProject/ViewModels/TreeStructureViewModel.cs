@@ -10,11 +10,6 @@ namespace TestProject
     public class TreeStructureViewModel : NodeViewModel
     {
         /// <summary>
-        /// Tree items
-        /// </summary>
-        public override ObservableCollection<NodeViewModel> Nodes { get; set; }
-
-        /// <summary>
         /// The selected node
         /// </summary>
         public NodeViewModel Selected { get; set; }
@@ -38,16 +33,6 @@ namespace TestProject
         /// Fires when user clicks the search button
         /// </summary>
         public ICommand FindCommand { get; set; }
-
-        /// <summary>
-        /// Adds a folder to root catalog
-        /// </summary>
-        public override ICommand AddFolderCommand { get; set; }
-
-        /// <summary>
-        /// Adds a record to root catalog
-        /// </summary>
-        public override ICommand AddRecordCommand { get; set; }
 
         /// <summary>
         /// Constructor, initializes test data
@@ -88,7 +73,7 @@ namespace TestProject
 
                     if (Selected != null)
                     {
-                        if (Selected.Type == NodeType.Folder)
+                        if (Selected.node.Type == NodeType.Folder)
                         {
                             Expand();
                             Selected.IsSelected = true;
@@ -107,7 +92,7 @@ namespace TestProject
                     Selected = node.Search(searchText);
                     if (Selected != null)
                     {
-                        if (Selected.Type == NodeType.Record)
+                        if (Selected.node.Type == NodeType.Record)
                         {
                             Expand();
                             Selected.IsSelected = true;
@@ -124,7 +109,7 @@ namespace TestProject
                     if (Selected != null)
                     {
                         Expand();
-                        if (Selected.Type == NodeType.Folder)
+                        if (Selected.node.Type == NodeType.Folder)
                         {
                             Selected.IsSelected = true;
                             Selected = null;
@@ -142,14 +127,14 @@ namespace TestProject
         /// </summary>
         private void SelectionChanged()
         {
-            if (Selected != null && Selected.Type == NodeType.Record)
+            if (Selected != null && Selected.node.Type == NodeType.Record)
             {
-                if (String.IsNullOrEmpty(Selected.Name))
-                    Selected.Name = "Unknown";
-                if (String.IsNullOrEmpty(Selected.Country))
-                    Selected.Country = "Unknown";
-                if (String.IsNullOrEmpty(Selected.DateOfBirth))
-                    Selected.DateOfBirth = "Unknown";
+                if (String.IsNullOrEmpty(Selected.node.Name))
+                    Selected.node.Name = "Unknown";
+                if (String.IsNullOrEmpty(Selected.node.Country))
+                    Selected.node.Country = "Unknown";
+                if (String.IsNullOrEmpty(Selected.node.DateOfBirth))
+                    Selected.node.DateOfBirth = "Unknown";
 
                 Selected.IsEditingName = Selected.IsEditingCountry = Selected.IsEditingDateOfBirth = false;
             }
@@ -160,9 +145,9 @@ namespace TestProject
 
                 if (Selected != null)
                 {
-                    if (Selected.Type == NodeType.Folder)
+                    if (Selected.node.Type == NodeType.Folder)
                         Selected = null;
-                    else if (Selected.Type == NodeType.Record)
+                    else if (Selected.node.Type == NodeType.Record)
                         break;
                     else
                         throw new NotSupportedException();

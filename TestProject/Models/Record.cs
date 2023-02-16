@@ -14,11 +14,6 @@ namespace TestProject
         public override NodeType Type => NodeType.Record;
 
         /// <summary>
-        /// The parent node
-        /// </summary>
-        public override Node ParentNode { get; set; }
-
-        /// <summary>
         /// Users name
         /// </summary>
         public override string Name { get; set; }

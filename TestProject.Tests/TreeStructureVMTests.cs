@@ -21,7 +21,7 @@ namespace TestProject.Tests
             vm.AddFolderCommand.Execute(new object());
 
             // Assert
-            var result = vm.Nodes.FirstOrDefault(node => node.Name == "New Folder");
+            var result = vm.Nodes.FirstOrDefault(n=> n.node.Name == "New Folder");
 
             // folder is created
             Assert.NotNull(result);
@@ -42,7 +42,7 @@ namespace TestProject.Tests
             vm.AddRecordCommand.Execute(new());
 
             // Assert
-            var result = vm.Nodes.FirstOrDefault(node => node.Name == "");
+            var result = vm.Nodes.FirstOrDefault(n => n.node.Name == "");
 
             // record is created
             Assert.NotNull(result);
@@ -58,6 +58,7 @@ namespace TestProject.Tests
         {
             // Arrange
             TreeStructureViewModel vm = new();
+            vm.AddRecordCommand.Execute(new());
 
             // Act
             vm.SearchText = " R: mS";

@@ -14,16 +14,6 @@ namespace TestProject
         public override NodeType Type => NodeType.Folder;
 
         /// <summary>
-        /// A list of subnodes
-        /// </summary>
-        public override ObservableCollection<Node> Nodes { get; set; } = new();
-
-        /// <summary>
-        /// The parent node
-        /// </summary>
-        public override Node ParentNode { get; set; }
-
-        /// <summary>
         /// Folders name
         /// </summary>
         public override string Name { get; set; }
@@ -32,7 +22,9 @@ namespace TestProject
         /// Default constructor
         /// </summary>
         /// <param name="name">Name of the folder</param>
-        public Folder(string name) =>
+        public Folder(string name) 
+        {
             Name = name;
+        }
     }
 }

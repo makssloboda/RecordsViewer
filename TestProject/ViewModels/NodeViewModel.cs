@@ -7,110 +7,151 @@ namespace TestProject
     /// <summary>
     /// A view model representing a node of the tree
     /// </summary>
-    public class NodeViewModel : BaseViewModel
+    public abstract class NodeViewModel : BaseViewModel
     {
         /// <summary>
-        /// A list for subnodes
+        /// The wrapped node
         /// </summary>
-        public virtual ObservableCollection<NodeViewModel> Nodes { get; set; }
+        public Node node { get; set; }
 
         /// <summary>
-        /// A parent of the current node
+        /// A list of subnodes
         /// </summary>
-        public virtual NodeViewModel ParentNode { get; set; }
+        public ObservableCollection<NodeViewModel> Nodes { get; set; } = new();
 
         /// <summary>
         /// The type of node
         /// </summary>
-        public virtual NodeType Type { get; set; }
+        public NodeType Type { 
+            get 
+            {
+                return node.Type;
+            }
+            set 
+            {
+                node.Type = value;
+            } 
+        }
 
         /// <summary>
-        /// The name of the current node
+        /// Users name
         /// </summary>
-        /// <returns></returns>
-        public virtual string Name { get; set; }
-
-        /// <summary>
-        /// Users country
-        /// </summary>
-        /// <returns></returns>
-        public virtual string Country { get; set; }
-
-        /// <summary>
-        /// Determins if a node is in renaming mode
-        /// </summary>
-        public virtual bool IsRenaming { get; set; }
-
-        /// <summary>
-        /// Determins if a records name is being edited
-        /// </summary>
-        public virtual bool IsEditingName { get; set; }
-
-        /// <summary>
-        /// Determins if a records country is being edited
-        /// </summary>
-        public virtual bool IsEditingCountry { get; set; }
-
-        /// <summary>
-        /// Determins if a records date of birth is being edited
-        /// </summary>
-        public virtual bool IsEditingDateOfBirth { get; set; }
-        
-        /// <summary>
-        /// Determins if a node is selected
-        /// </summary>
-        public virtual bool IsSelected { get; set; }
-
-        /// <summary>
-        /// Determins if a node is selected
-        /// </summary>
-        public virtual bool IsExpanded { get; set; } = false;
+        public string Name
+        {
+            get
+            {
+                return node.Name;
+            }
+            set
+            {
+                node.Name = value;
+            }
+        }
 
         /// <summary>
         /// Users date of birth
         /// </summary>
-        /// <returns></returns>
-        public virtual string DateOfBirth { get; set; }
+        public string DateOfBirth
+        {
+            get
+            {
+                return node.DateOfBirth;
+            }
+            set
+            {
+                node.DateOfBirth = value;
+            }
+        }
+
+        /// <summary>
+        /// Users country
+        /// </summary>
+        public string Country
+        {
+            get
+            {
+                return node.Country;
+            }
+            set
+            {
+                node.Country = value;
+            }
+        }
+
+        /// <summary>
+        /// The parent of the current node
+        /// </summary>
+        public NodeViewModel ParentNode { get; set; }
+
+        /// <summary>
+        /// Determins if a node is in renaming mode
+        /// </summary>
+        public bool IsRenaming { get; set; }
+
+        /// <summary>
+        /// Determins if a records name is being edited
+        /// </summary>
+        public bool IsEditingName { get; set; }
+
+        /// <summary>
+        /// Determins if a records country is being edited
+        /// </summary>
+        public bool IsEditingCountry { get; set; }
+
+        /// <summary>
+        /// Determins if a records date of birth is being edited
+        /// </summary>
+        public bool IsEditingDateOfBirth { get; set; }
+        
+        /// <summary>
+        /// Determins if a node is selected
+        /// </summary>
+        public bool IsSelected { get; set; }
+
+        /// <summary>
+        /// Determins if a node is selected
+        /// </summary>
+        public bool IsExpanded { get; set; } = false;
 
         /// <summary>
         /// Command to delete a node
         /// </summary>
-        public virtual ICommand DeleteCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
 
         /// <summary>
         /// Command to rename a node
         /// </summary>
-        public virtual ICommand RenameCommand { get; set; }
+        public ICommand RenameCommand { get; set; }
 
         /// <summary>
         /// Command to end renaming a node
         /// </summary>
-        public virtual ICommand EndRenameCommand { get; set; }
+        public ICommand EndRenameCommand { get; set; }
 
         /// <summary>
         /// Command to add a folder to a node
         /// </summary>
-        public virtual ICommand AddFolderCommand { get; set; }
+        public ICommand AddFolderCommand { get; set; }
 
         /// <summary>
         /// Command to add a record to a node
         /// </summary>
-        public virtual ICommand AddRecordCommand { get; set; }
+        public ICommand AddRecordCommand { get; set; }
 
         /// <summary>
         /// Command to edit records name
         /// </summary>
-        public virtual ICommand EditNameCommand { get; set; }
+        public ICommand EditNameCommand { get; set; }
 
         /// <summary>
         /// Command to edit records country
         /// </summary>
-        public virtual ICommand EditCountryCommand { get; set; }
+        public ICommand EditCountryCommand { get; set; }
 
         /// <summary>
         /// Command to edit records date of birth
         /// </summary>
-        public virtual ICommand EditDateOfBirthCommand { get; set; }
+        public ICommand EditDateOfBirthCommand { get; set; }
 
         /// <summary>
         /// Finds out if this node or one of its subnodes is selected
@@ -128,10 +169,8 @@ namespace TestProject
             throw new NotImplementedException();
 
         /// <summary>
-        /// Expands this node
-        /// NOTE: Doesn't work for records
+        /// Expands the node
         /// </summary>
-        public virtual void Expand() =>
-            IsExpanded = true;
+        public abstract void Expand();
     }
 }

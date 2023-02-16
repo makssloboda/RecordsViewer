@@ -10,15 +10,6 @@ namespace TestProject
     /// </summary>
     public abstract class Node
     {
-        /// <summary>
-        /// A list of subnodes
-        /// </summary>
-        public virtual ObservableCollection<Node> Nodes { get; set; }
-
-        /// <summary>
-        /// A parent of the current node
-        /// </summary>
-        public virtual Node ParentNode { get; set; }
 
         /// <summary>
         /// The type of node
