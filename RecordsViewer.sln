@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31321.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject", "TestProject\TestProject.csproj", "{FDFBB0B4-73E4-4A66-9948-CF2F973C4713}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecordsViewer", "TestProject\RecordsViewer.csproj", "{FDFBB0B4-73E4-4A66-9948-CF2F973C4713}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject.Tests", "TestProject.Tests\TestProject.Tests.csproj", "{6BC310FF-F532-4F8C-8A03-1260A6B9A3F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecordsViewer.Tests", "TestProject.Tests\RecordsViewer.Tests.csproj", "{6BC310FF-F532-4F8C-8A03-1260A6B9A3F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
