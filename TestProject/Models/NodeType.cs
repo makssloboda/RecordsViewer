@@ -6,13 +6,13 @@
     public enum NodeType
     {
         /// <summary>
-        /// Represents a record
-        /// </summary>
-        Record,
-
-        /// <summary>
         /// Represents a folder
         /// </summary>
-        Folder
+        Folder = 0,
+
+        /// <summary>
+        /// Represents a record
+        /// </summary>
+        Record = 1
     }
 }

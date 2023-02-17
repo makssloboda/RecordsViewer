@@ -8,11 +8,11 @@ namespace TestProject
     /// </summary>
     public class Folder : Node
     {
-        public override NodeType Type => NodeType.Folder;
-
         public Folder(string name) 
         {
             Name = name;
+
+            Type = NodeType.Folder;
         }
     }
 }

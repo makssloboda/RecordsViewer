@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using TestProject.Models;
 
 namespace TestProject
 {
@@ -43,14 +44,30 @@ namespace TestProject
 
             SelectionChangedCommand = new RelayCommand(SelectionChanged);
             FindCommand = new RelayCommand(Find);
-            AddFolderCommand = new RelayCommand(() => Nodes.Add(new FolderViewModel(this, "New Folder") { IsRenaming = true }));
-            AddRecordCommand = new RelayCommand(() => Nodes.Add(new RecordViewModel(this, "", "", "")
+            AddFolderCommand = new RelayCommand(AddFolder);
+            AddRecordCommand = new RelayCommand(AddRecord);
+        }
+
+        private void AddFolder()
+        {
+            FolderViewModel newFolder = new FolderViewModel(this, "New Folder") { IsRenaming = true };
+            newFolder.node.ParentNodeID = -1;
+            Nodes.Add(newFolder);
+            db.InsertNode(newFolder.node);
+        }
+
+        private void AddRecord()
+        {
+            RecordViewModel newRecord = new RecordViewModel(this, "", "", "")
             {
                 IsSelected = true,
                 IsEditingName = true,
                 IsEditingCountry = true,
                 IsEditingDateOfBirth = true
-            }));
+            };
+            newRecord.node.ParentNodeID = -1;
+            Nodes.Add(newRecord);
+            db.InsertNode(newRecord.node);
         }
 
         /// <summary>

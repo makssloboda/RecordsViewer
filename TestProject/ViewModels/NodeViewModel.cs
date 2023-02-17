@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using TestProject.Models;
 
 namespace TestProject
 {
@@ -9,6 +10,8 @@ namespace TestProject
     /// </summary>
     public abstract class NodeViewModel : BaseViewModel
     {
+        protected DBManager db = new DBManager();
+
         /// <summary>
         /// The wrapped node
         /// </summary>
@@ -45,6 +48,7 @@ namespace TestProject
             set
             {
                 node.Name = value;
+                db.UpdateNode(node);
             }
         }
 
@@ -60,6 +64,7 @@ namespace TestProject
             set
             {
                 node.DateOfBirth = value;
+                db.UpdateNode(node);
             }
         }
 
@@ -75,6 +80,7 @@ namespace TestProject
             set
             {
                 node.Country = value;
+                db.UpdateNode(node);
             }
         }
 

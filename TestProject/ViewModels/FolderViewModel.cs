@@ -13,25 +13,35 @@ namespace TestProject
             node = new Folder(name);
             ParentNode = parent;
 
-            DeleteCommand = new RelayCommand(() => ParentNode.Nodes.Remove(this));
+            DeleteCommand = new RelayCommand(() => 
+            {
+                IsSelected = false;
+                ParentNode.Nodes.Remove(this);
+                db.DeleteNode(this.node);
+            });
             RenameCommand = new RelayCommand(() => IsRenaming = true);
             EndRenameCommand = new RelayCommand(() => IsRenaming = false);
             AddFolderCommand = new RelayCommand(() =>
             {
                 Expand();
-                Nodes.Add(new FolderViewModel(this, "New Folder") { IsRenaming = true });
-                
+                FolderViewModel newFolder = new FolderViewModel(this, "New Folder") { IsRenaming = true };
+                newFolder.node.ParentNodeID = this.node.NodeID;
+                Nodes.Add(newFolder);
+                db.InsertNode(newFolder.node);
             });
-            AddRecordCommand = new RelayCommand(() => 
+            AddRecordCommand = new RelayCommand(() =>
             {
                 Expand();
-                Nodes.Add(new RecordViewModel(this, "", "", "")
+                RecordViewModel newRecord = new RecordViewModel(this, "", "", "")
                 {
                     IsSelected = true,
                     IsEditingName = true,
                     IsEditingCountry = true,
                     IsEditingDateOfBirth = true
-                });
+                };
+                newRecord.node.ParentNodeID = this.node.NodeID;
+                Nodes.Add(newRecord);
+                db.InsertNode(newRecord.node);
             });
         }
 

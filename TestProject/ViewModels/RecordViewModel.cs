@@ -12,7 +12,12 @@ namespace TestProject
             node = new Record(name, dateOfBirth, country);
             ParentNode = parent;
 
-            DeleteCommand = new RelayCommand(() => ParentNode.Nodes.Remove(this));
+            DeleteCommand = new RelayCommand(() =>
+            {
+                IsSelected = false;
+                ParentNode.Nodes.Remove(this);
+                db.DeleteNode(this.node);
+            });
             EditNameCommand = new RelayCommand(() => IsEditingName = !IsEditingName);
             EditCountryCommand = new RelayCommand(() => IsEditingCountry = !IsEditingCountry);
             EditDateOfBirthCommand = new RelayCommand(() => IsEditingDateOfBirth = !IsEditingDateOfBirth);
