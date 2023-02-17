@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using TestProject.Models;
 
@@ -178,5 +179,36 @@ namespace TestProject
         /// Expands the node
         /// </summary>
         public abstract void Expand();
+
+        /// <summary>
+        /// Populates folder with children
+        /// </summary>
+        public virtual void PopulateChildren() =>
+            throw new NotImplementedException();
+
+        /// <summary>
+        /// Wraps a Node into NodeViewModel
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public NodeViewModel Wrap(Node node)
+        {
+            switch (node.Type)
+            {
+                case NodeType.Folder:
+                    FolderViewModel wrappedFolder = new FolderViewModel(this, node.Name);
+                    wrappedFolder.node.NodeID = node.NodeID;
+                    wrappedFolder.node.ParentNodeID = node.ParentNodeID;
+                    return wrappedFolder;
+                case NodeType.Record:
+                    RecordViewModel wrappedRecord = new RecordViewModel(this, node.Name, node.DateOfBirth, node.Country);
+                    wrappedRecord.node.NodeID = node.NodeID;
+                    wrappedRecord.node.ParentNodeID = node.ParentNodeID;
+                    return wrappedRecord;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
     }
 }

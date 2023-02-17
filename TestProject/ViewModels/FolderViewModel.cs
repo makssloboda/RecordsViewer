@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace TestProject
@@ -88,6 +91,18 @@ namespace TestProject
 
             foreach (NodeViewModel node in Nodes)
                 node.Expand();
+        }
+
+        public override void PopulateChildren()
+        {
+            List<Node> childNodes = db.GetNodes().Where(n => n.ParentNodeID == this.node.NodeID).ToList();
+            childNodes.ForEach(n => Nodes.Add(Wrap(n)));
+
+            foreach (NodeViewModel node in Nodes)
+            {
+                if (node.Type == NodeType.Folder)
+                    node.PopulateChildren();
+            }
         }
     }
 }

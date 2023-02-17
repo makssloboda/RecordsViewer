@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Documents;
 using System.Windows.Input;
 using TestProject.Models;
 
@@ -40,12 +43,26 @@ namespace TestProject
         /// </summary>
         public TreeStructureViewModel()
         {
-            Nodes = new ObservableCollection<NodeViewModel>();
+            PopulateTree();
 
             SelectionChangedCommand = new RelayCommand(SelectionChanged);
             FindCommand = new RelayCommand(Find);
             AddFolderCommand = new RelayCommand(AddFolder);
             AddRecordCommand = new RelayCommand(AddRecord);
+        }
+
+        private void PopulateTree()
+        {
+            Nodes = new ObservableCollection<NodeViewModel>();
+
+            List<Node> rootNodes = db.GetNodes().Where(n => n.ParentNodeID == -1).ToList();
+            rootNodes.ForEach(n => Nodes.Add(Wrap(n)));
+
+            foreach (NodeViewModel node in Nodes)
+            {
+                if (node.Type == NodeType.Folder)
+                    node.PopulateChildren();
+            }
         }
 
         private void AddFolder()

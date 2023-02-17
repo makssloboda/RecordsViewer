@@ -55,5 +55,13 @@ namespace TestProject.Models
                 db.SaveChanges();
             }
         }
+
+        public List<Node> GetNodes()
+        {
+            using (var db = new Context())
+            {
+                return db.Nodes.ToList();
+            }
+        }
     }
 }
