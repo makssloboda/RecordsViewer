@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecordsViewerAPI.Models;
+using RecordsViewerAPI.Services;
 using System.Threading.Tasks;
 
 namespace RecordsViewerAPI.Controllers
@@ -8,24 +9,24 @@ namespace RecordsViewerAPI.Controllers
     [ApiController]
     public class NodesController : ControllerBase
     {
-        private readonly DBManager db;
+        private readonly IRecordsService recordsService;
 
-        public NodesController(DBManager dbManager)
+        public NodesController(IRecordsService recordsService)
         {
-            db = dbManager;
+            this.recordsService = recordsService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var nodes = await db.GetAll();
+            var nodes = await recordsService.GetAll();
             return Ok(nodes);
         }
 
         [HttpGet("{id}", Name = "GetNode")]
         public async Task<IActionResult> Get(int id)
         {
-            Node node = await db.Get(id);
+            Node node = await recordsService.Get(id);
 
             if (node == null)
                 return NotFound("Node not found.");
@@ -42,7 +43,7 @@ namespace RecordsViewerAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            db.Add(node);
+            recordsService.Add(node);
             return NoContent();
         }
 
@@ -52,25 +53,25 @@ namespace RecordsViewerAPI.Controllers
             if (node == null)
                 return BadRequest("Node is null.");
 
-            Node nodeToUpdate = await db.Get(id);
+            Node nodeToUpdate = await recordsService.Get(id);
             if (nodeToUpdate == null)
                 return NotFound("The node couldn't be found.");
 
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            db.Update(nodeToUpdate, node);
+            recordsService.Update(nodeToUpdate, node);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            Node node = await db.Get(id);
+            Node node = await recordsService.Get(id);
             if (node == null)
                 return NotFound("The node couldn't be found.");
 
-            db.Delete(node);
+            recordsService.Delete(node);
             return NoContent();
         }
     }

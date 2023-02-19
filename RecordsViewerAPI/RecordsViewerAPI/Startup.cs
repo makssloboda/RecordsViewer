@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RecordsViewerAPI.Models;
+using RecordsViewerAPI.Services;
 
 namespace RecordsViewerAPI
 {
@@ -22,7 +23,7 @@ namespace RecordsViewerAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<RecordsViewerContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:RecordsViewerDB"]));
-            services.AddScoped<DBManager>();
+            services.AddScoped<IRecordsService, RecordsService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RecordsViewerAPI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace RecordsViewerAPI.Models
+namespace RecordsViewerAPI.Services
 {
-    public class DBManager
+    public class RecordsService : IRecordsService
     {
         private RecordsViewerContext context = new RecordsViewerContext();
 
