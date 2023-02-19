@@ -51,11 +51,11 @@ namespace TestProject
             AddRecordCommand = new RelayCommand(AddRecord);
         }
 
-        private void PopulateTree()
+        private async void PopulateTree()
         {
             Nodes = new ObservableCollection<NodeViewModel>();
 
-            List<Node> rootNodes = db.GetNodes().Where(n => n.ParentNodeID == -1).ToList();
+            List<Node> rootNodes = (await db.GetNodes()).Where(n => n.ParentNodeID == -1).ToList();
             rootNodes.ForEach(n => Nodes.Add(Wrap(n)));
 
             foreach (NodeViewModel node in Nodes)

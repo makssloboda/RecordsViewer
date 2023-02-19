@@ -93,9 +93,9 @@ namespace TestProject
                 node.Expand();
         }
 
-        public override void PopulateChildren()
+        public async override void PopulateChildren()
         {
-            List<Node> childNodes = db.GetNodes().Where(n => n.ParentNodeID == this.node.NodeID).ToList();
+            List<Node> childNodes = (await db.GetNodes()).Where(n => n.ParentNodeID == this.node.NodeID).ToList();
             childNodes.ForEach(n => Nodes.Add(Wrap(n)));
 
             foreach (NodeViewModel node in Nodes)

@@ -183,7 +183,7 @@ namespace TestProject
         /// <summary>
         /// Populates folder with children
         /// </summary>
-        public virtual void PopulateChildren() =>
+        public async virtual void PopulateChildren() =>
             throw new NotImplementedException();
 
         /// <summary>

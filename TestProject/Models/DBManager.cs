@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
+using System.Threading.Tasks;
 
 namespace TestProject.Models
 {
@@ -12,31 +13,31 @@ namespace TestProject.Models
             db.Nodes.Remove(node);
         }
 
-        private void DeleteFolder(Context db, Node node)
+        private async void DeleteFolder(Context db, Node node)
         {
             db.Nodes.Remove(node);
-            db.Nodes.Where(n => n.ParentNodeID == node.NodeID).ToList().ForEach(n => DeleteNode(n));
+            (await db.Nodes.Where(n => n.ParentNodeID == node.NodeID).ToListAsync()).ForEach(n => DeleteNode(n));
         }
 
-        public void InsertNode(Node node)
+        public async void InsertNode(Node node)
         {
             using (var db = new Context())
             {
-                db.Nodes.Add(node);
-                db.SaveChanges();
+                await db.Nodes.AddAsync(node);
+                await db.SaveChangesAsync();
             }
         }
 
-        public void UpdateNode(Node node)
+        public async void UpdateNode(Node node)
         {
             using (var db = new Context())
             {
                 db.Nodes.Update(node);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
-        public void DeleteNode(Node node)
+        public async void DeleteNode(Node node)
         {
             using (var db = new Context())
             {
@@ -52,15 +53,15 @@ namespace TestProject.Models
                         throw new NotImplementedException();
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
-        public List<Node> GetNodes()
+        public async Task<List<Node>> GetNodes()
         {
             using (var db = new Context())
             {
-                return db.Nodes.ToList();
+                return await db.Nodes.ToListAsync();
             }
         }
     }
