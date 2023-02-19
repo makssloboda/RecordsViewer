@@ -7,14 +7,10 @@ namespace TestProject
     /// </summary>
     public partial class MainWindow : Window
     {
-        /// <summary>
-        /// Default constructor
-        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
 
-            // set data context
             DataContext = new TreeStructureViewModel();
         }
     }
