@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecordsViewerAPI.Models;
+using System.Threading.Tasks;
 
 namespace RecordsViewerAPI.Controllers
 {
@@ -15,16 +16,16 @@ namespace RecordsViewerAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var nodes = db.GetAll();
+            var nodes = await db.GetAll();
             return Ok(nodes);
         }
 
         [HttpGet("{id}", Name = "GetNode")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            Node node = db.Get(id);
+            Node node = await db.Get(id);
 
             if (node == null)
                 return NotFound("Node not found.");
@@ -46,12 +47,12 @@ namespace RecordsViewerAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Node node)
+        public async Task<IActionResult> Put(int id, [FromBody] Node node)
         {
             if (node == null)
                 return BadRequest("Node is null.");
 
-            Node nodeToUpdate = db.Get(id);
+            Node nodeToUpdate = await db.Get(id);
             if (nodeToUpdate == null)
                 return NotFound("The node couldn't be found.");
 
@@ -63,9 +64,9 @@ namespace RecordsViewerAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            Node node = db.Get(id);
+            Node node = await db.Get(id);
             if (node == null)
                 return NotFound("The node couldn't be found.");
 

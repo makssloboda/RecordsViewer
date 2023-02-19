@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RecordsViewerAPI.Models
 {
@@ -7,37 +8,37 @@ namespace RecordsViewerAPI.Models
     {
         private RecordsViewerContext context = new RecordsViewerContext();
 
-        public IEnumerable<Node> GetAll()
+        public async Task<IEnumerable<Node>> GetAll()
         {
-            return context.Nodes.ToList();
+            return await context.Nodes.ToListAsync();
         }
 
-        public Node Get(int ID)
+        public async Task<Node> Get(int ID)
         {
-            return context.Nodes.Single(n => n.NodeId == ID);
+            return await context.Nodes.SingleAsync(n => n.NodeId == ID);
         }
 
-        public void Add(Node node)
+        public async void Add(Node node)
         {
             context.Nodes.Add(node);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public void Update(Node nodeToUpdate, Node node)
+        public async void Update(Node nodeToUpdate, Node node)
         {
-            nodeToUpdate = context.Nodes.Single(n => n.NodeId == nodeToUpdate.NodeId);
+            nodeToUpdate = await context.Nodes.SingleAsync(n => n.NodeId == nodeToUpdate.NodeId);
             nodeToUpdate.ParentNodeId = node.ParentNodeId;
             nodeToUpdate.Type = node.Type;
             nodeToUpdate.Name = node.Name;
             nodeToUpdate.Country = node.Country;
             nodeToUpdate.DateOfBirth = node.DateOfBirth;
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public void Delete(Node node)
+        public async void Delete(Node node)
         {
             context.Nodes.Remove(node);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }
