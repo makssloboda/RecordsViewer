@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using TestProject;
 
-namespace TestProject.Models
+namespace RecordsViewer.Data
 {
     public class Context : DbContext
     {

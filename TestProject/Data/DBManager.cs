@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TestProject;
 
-namespace TestProject.Models
+namespace RecordsViewer.Data
 {
     public class DBManager
     {
