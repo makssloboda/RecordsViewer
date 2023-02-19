@@ -1,6 +1,7 @@
 ﻿using System.Windows;
+using TestProject;
 
-namespace TestProject
+namespace RecordsViewer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
