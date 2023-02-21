@@ -1,8 +1,6 @@
-﻿using RecordsViewerAPI.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using RecordsViewerAPI_v2.Models;
 
-namespace RecordsViewerAPI.Services
+namespace RecordsViewerAPI_v2.Services
 {
     public interface IRecordsService
     {
